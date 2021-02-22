@@ -86,9 +86,13 @@ class TFLManager:
         if self.is_able_find_distances:
             current_frame.EM = self.calc_EM(current_frame.id)
 
+        # part 1
         candidates, auxiliary = self.detect_light_sources_candidates(np.array(Image.open(img_name)))
+        
+        # part 2
         current_frame.traffic_light, current_frame.auxiliary = self.identifies_coordinates_of_traffic_lights(np.array(Image.open(img_name)),current_frame.img, candidates, auxiliary)
         
+        # part 3
         if self.is_able_find_distances:
             distances = self.find_distance_of_traffic_lights(current_frame)
         
