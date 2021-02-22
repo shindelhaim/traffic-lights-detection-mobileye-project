@@ -134,8 +134,11 @@ def marking_the_coordinates(image, axis_x, axis_y, name_color):
     if name_color == 'red':
         color = [255,0,0]
     
-    if name_color == 'green':
+    elif name_color == 'green':
         color = [0,255,0]
+
+    else:
+        color = [255,255,255]
     
     for i in range(len(axis_x)):
         image[axis_x[i]: axis_x[i] + 8 , axis_y[i] : axis_y[i] + 8] = [[color,color,color,color,color,color,color,color]

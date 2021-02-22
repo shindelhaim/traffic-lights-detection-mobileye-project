@@ -11,6 +11,9 @@ def marking_coordinates(r_image, coordinates, auxiliary):
     
         elif auxiliary[i] == 'G':
             color = [0,255,0]
+        
+        else:
+            color = [255,255,255]
 
         r_image[coordinates[i][0]: coordinates[i][0] + 8 , coordinates[i][1]: coordinates[i][1] + 8] = [[color,color,color,color,color,color,color,color]
                                                                                                             ,[color,color,color,color,color,color,color,color]
