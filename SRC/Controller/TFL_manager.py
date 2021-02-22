@@ -38,16 +38,20 @@ class TFLManager:
         return np.array(candidates), np.array(auxiliary) 
 
 
-    def identifies_coordinates_of_traffic_lights(self, image,current_img, candidates, auxiliary):
+    def identifies_coordinates_of_traffic_lights(self, image, candidates, auxiliary):
         padding_img = get_padding_img(image)
         traffic_light = []
         traffic_light_auxiliary = []
+        num_candidates = len(candidates)
+        crop_imgs = []
 
-        for i in range(len(candidates)):
-            crop_img = get_crop_img(padding_img,(candidates[i, 0] + 40, candidates[i, 1] + 40))
-            predictions = self.loaded_model.predict([[crop_img]])
-            
-            if predictions[0][1] > 0.8:
+        for i in range(num_candidates):
+            crop_imgs.append(get_crop_img(padding_img, (candidates[i, 0] + 40, candidates[i, 1] + 40)))
+
+        predictions = self.loaded_model.predict(np.array(crop_imgs).reshape(num_candidates, 81, 81, 3))
+
+        for i in range(len(predictions)):
+            if predictions[i][1] > 0.8:
                 traffic_light += [candidates[i]]
                 traffic_light_auxiliary += [auxiliary[i]]
 
